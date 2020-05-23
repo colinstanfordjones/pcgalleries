@@ -120,7 +120,7 @@ var VoiceApp = createReactClass({
   // Handle Dial
   handleDial() {
     Twilio.Device.connect({
-      phone: `+${this.state.countryCode}${this.state.phoneNumber}`,
+      phone: `${this.state.phoneNumber}`,
       agent: `colin`
     }, this.state.audioConstraints);
   },
