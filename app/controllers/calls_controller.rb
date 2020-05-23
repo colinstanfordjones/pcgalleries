@@ -1,6 +1,6 @@
 require 'twilio-ruby'
 
-class CallsController < ApplicationController::Base
+class CallsController < ApplicationController
   protect_from_forgery unless: -> { true }
 
   before_action :set_call, only: [:show, :edit, :update, :destroy]
