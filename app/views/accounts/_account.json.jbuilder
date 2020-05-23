@@ -9,7 +9,7 @@ json.extract!(
   :address2,
   :city,
   :state,
-  :zip_code,
+  :zip,
   :created_at,
   :updated_at
 )

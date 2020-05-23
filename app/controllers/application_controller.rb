@@ -1,8 +1,12 @@
 require 'twilio-ruby'
 
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
+  before_action :authenticate_user!
   before_action :setup_twilio
 
+  private
   def setup_twilio
     @client_name = 'colin'
 
@@ -21,5 +25,8 @@ class ApplicationController < ActionController::Base
     token.add_scope(outgoing_scope)
 
     @twilio_token = token.to_s
+  end
+
+  def require_privileged
   end
 end

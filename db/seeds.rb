@@ -9,17 +9,26 @@ require 'csv'
 
 accounts = Dir.glob("**/*.csv")
 
+%W[colinstanfordjones@gmail.com jgarofalo@pcgalleries.com msalvo@pcgalleries.com].each do |email|
+  user = User.new
+  user.email = email
+  user.role = 'admin'
+  user.password = 'password'
+  user.save!
+end
+
 accounts.each do |file|
   CSV.foreach(file, headers: true) do |row|
     Account.create(
-      first_name: row['first_name'] || '',
-      last_name: row['last_name'] || '',
-      email: row['email'] || '',
-      phone_number: row['phone_number'] || '',
-      address1: row['address1'] || '',
-      zip_code: row['zip_code'] || '',
-      city: row['city'] || '',
-      state: row['state'] || ''
+      first_name: row['first_name'],
+      last_name: row['last_name'],
+      email: row['email'],
+      phone_number: Account.format_phone_number(row['phone_number']),
+      address1: row['address1'],
+      zip: row['zip_code'].to_i,
+      city: row['city'],
+      sales_associate: User.find_by_email('colinstanfordjones@gmail.com'),
+      state: Account.format_state(row['state'])
     )
   end
 end

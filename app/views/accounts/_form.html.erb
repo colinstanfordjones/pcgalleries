@@ -44,11 +44,11 @@
   </div>
   <div class="field">
     <label>State </label>
-    <%= form.text_field :state, id: :state %>
+    <%= form.collection_select :state, Account.us_states.sort.to_h, :first, :last, prompt: 'Select State' %>
   </div>
   <div class="field">
     <label>Zip Code</label>
-    <%= form.number_field :zip_code, id: :zip_code %>
+    <%= form.number_field :zip, id: :zip %>
   </div>
 
   <div class="actions">
