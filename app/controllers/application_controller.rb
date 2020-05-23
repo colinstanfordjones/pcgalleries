@@ -1,4 +1,5 @@
 require 'twilio-ruby'
+require 'securerandom'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
@@ -8,7 +9,11 @@ class ApplicationController < ActionController::Base
 
   private
   def setup_twilio
-    @client_name = 'colin'
+    if user_signed_in?
+      @client_name = current_user.email
+    else
+      @client_name = SecureRandom.uuid
+    end
 
     @account_sid = ENV['ACCOUNT_SID']
     @auth_token = ENV['SID_AUTH_TOKEN']
@@ -28,5 +33,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_privileged
+    redirect_to(root_path) unless user_signed_in? && current_user.privileged?
   end
 end

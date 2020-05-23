@@ -1,9 +1,10 @@
 require 'twilio-ruby'
 
-class CallsController < ActionController::Base
+class CallsController < ApplicationController::Base
   protect_from_forgery unless: -> { true }
 
   before_action :set_call, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:index, :show]
   before_action :initialize_client
 
   # GET /calls
@@ -73,10 +74,10 @@ class CallsController < ActionController::Base
   end
 
   def dial
-    @client.calls.create(twiml: '
+    @client.calls.create(twiml: "
         <Response>
-          <Dial><Client>colin</Client></Dial>
-        </Response>',
+          <Dial><Client>#{@client_name}</Client></Dial>
+        </Response>",
       to: '+14152400492',
       from: '+14152400492'
     )
