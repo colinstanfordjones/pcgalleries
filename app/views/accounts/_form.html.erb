@@ -1,0 +1,57 @@
+<%= form_with(model: account, local: true) do |form| %>
+  <% if account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+        <% account.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%=form.label :first_name %>
+    <%=form.text_field :first_name, id: :user_first_name %>
+  </div>
+
+  <div class="field">
+    <%=form.label :last_name %>
+    <%=form.text_field :last_name, id: :user_last_name %>
+  </div>
+
+  <div class="field">
+    <%=form.label :email %>
+    <%=form.email_field :email, id: :user_email %>
+  </div>
+
+  <div class="field">
+    <%=form.label :phone_number %>
+    <%=form.telephone_field :phone_number, id: :phone_number %>
+  </div>
+
+  <div class="field">
+    <label>Street address </label>
+    <%= form.text_field :address1, id: :address1 %>
+  </div>
+  <div class="field">
+    <label>Street address 2</label>
+    <%= form.text_field :address2, id: :address2 %>
+  </div>
+  <div class="field">
+    <label>City </label>
+    <%= form.text_field :city, id: :city %>
+  </div>
+  <div class="field">
+    <label>State </label>
+    <%= form.text_field :state, id: :state %>
+  </div>
+  <div class="field">
+    <label>Zip Code</label>
+    <%= form.number_field :zip_code, id: :zip_code %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

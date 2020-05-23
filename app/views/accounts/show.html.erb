@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+<%= react_component("Account", {
+  firstName: @account.first_name,
+  lastName: @account.last_name,
+  phoneNumber: @account.phone_number,
+  email: @account.email,
+  address1: @account.address1,
+  address2: @account.address2,
+  city: @account.city,
+  state: @account.state,
+  zip_code: @account.zip_code,
+}) %>
+<% @account.notes do |note| %>
+  <%= react_component("Note", {
+    status: note.status,
+    conversation: note.conversation,
+    createdAt: note.created_at,
+    updatedAt: note.updated_at,
+  }) %>
+<% end %>
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Destroy', @account, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', accounts_path %>
+
+<%= react_component("Voice", { token: @twilio_token, phoneNumber: @account.phone_number }) %>
