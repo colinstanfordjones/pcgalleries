@@ -31,7 +31,7 @@ class CallsController < ActionController::Base
   # POST /calls.json
   def create
     twiml = Twilio::TwiML::VoiceResponse.new do |r|
-      r.dial(number: call_params["phone"], caller_id: call_params["agent"])
+      r.dial(number: call_params["phone"], caller_id: User.agent_number(call_params["agent"]))
     end
 
     render xml: twiml.to_s

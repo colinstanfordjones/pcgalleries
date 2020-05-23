@@ -54,6 +54,7 @@ var VoiceApp = createReactClass({
       status: 'Connecting...',
       onPhone: false,
       phoneNumber: this.props.phoneNumber,
+      agent: this.props.agent,
       countryCode: '1',
       audioConstraints: null,
       isValidNumber: false
@@ -120,8 +121,8 @@ var VoiceApp = createReactClass({
   // Handle Dial
   handleDial() {
     Twilio.Device.connect({
-      phone: `${this.state.phoneNumber}`,
-      agent: `colin`
+      phone: this.state.phoneNumber,
+      agent: this.state.agent
     }, this.state.audioConstraints);
   },
 
@@ -158,7 +159,7 @@ class Voice extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <VoiceApp token={this.props.token} phoneNumber={this.props.phoneNumber} />
+        <VoiceApp token={this.props.token} phoneNumber={this.props.phoneNumber} agent={this.props.agent} />
       </React.Fragment>
     );
   }
@@ -166,7 +167,8 @@ class Voice extends React.Component {
 
 Voice.propTypes = {
   token: PropTypes.string,
-  phoneNumber: PropTypes.string
+  phoneNumber: PropTypes.string,
+  agent: PropTypes.string
 };
 
 export default Voice
