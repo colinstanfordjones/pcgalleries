@@ -1,38 +1,27 @@
 require "rails_helper"
 
 RSpec.describe AccountsController, type: :routing do
+  login_user
+
   describe "routing" do
     it "routes to #index" do
-      expect(get: "/accounts").to route_to("accounts#index")
-    end
-
-    it "routes to #new" do
-      expect(get: "/accounts/new").to route_to("accounts#new")
+      expect(get: "/api/v1/accounts").to route_to("accounts#index", "format"=>:json)
     end
 
     it "routes to #show" do
-      expect(get: "/accounts/1").to route_to("accounts#show", id: "1")
+      expect(get: "/api/v1/accounts/1").to route_to("accounts#show", "format"=>:json, id: "1")
     end
-
-    it "routes to #edit" do
-      expect(get: "/accounts/1/edit").to route_to("accounts#edit", id: "1")
-    end
-
 
     it "routes to #create" do
-      expect(post: "/accounts").to route_to("accounts#create")
+      expect(post: "/api/v1/accounts").to route_to("accounts#create", "format"=>:json)
     end
 
     it "routes to #update via PUT" do
-      expect(put: "/accounts/1").to route_to("accounts#update", id: "1")
+      expect(put: "/api/v1/accounts/1").to route_to("accounts#update", "format"=>:json, id: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(patch: "/accounts/1").to route_to("accounts#update", id: "1")
-    end
-
-    it "routes to #destroy" do
-      expect(delete: "/accounts/1").to route_to("accounts#destroy", id: "1")
+      expect(patch: "/api/v1/accounts/1").to route_to("accounts#update", "format"=>:json, id: "1")
     end
   end
 end

@@ -12,7 +12,8 @@
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/accounts", type: :request do
+RSpec.describe "/api/v1/accounts", type: :request do
+  login_user
   # Account. As you add validations to Account, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
@@ -35,21 +36,6 @@ RSpec.describe "/accounts", type: :request do
     it "renders a successful response" do
       account = Account.create! valid_attributes
       get account_url(account)
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_account_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "render a successful response" do
-      account = Account.create! valid_attributes
-      get edit_account_url(account)
       expect(response).to be_successful
     end
   end
@@ -109,21 +95,6 @@ RSpec.describe "/accounts", type: :request do
         patch account_url(account), params: { account: invalid_attributes }
         expect(response).to be_successful
       end
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "destroys the requested account" do
-      account = Account.create! valid_attributes
-      expect {
-        delete account_url(account)
-      }.to change(Account, :count).by(-1)
-    end
-
-    it "redirects to the accounts list" do
-      account = Account.create! valid_attributes
-      delete account_url(account)
-      expect(response).to redirect_to(accounts_url)
     end
   end
 end

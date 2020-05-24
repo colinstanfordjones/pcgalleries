@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "required" : [
+    "handle",
+    "email",
+    "id",
+    "created_at",
+    "updated_at"
+  ],
+  "properties" : {
+    "current_device_id" : { "type" : "string" },
+    "name" : { "type" : "string" },
+    "id" : { "type" : "integer" },
+    "phone_number" : { "type" : "string" },
+    "avatar" : { "type" : "string" },
+    "unconfirmed_phone_number" : { "type" : [ "string", "null" ] },
+    "created_at" : { "type" : "string", "format": "date-time" },
+    "updated_at" : { "type" : "string", "format": "date-time" }
+  }
+}

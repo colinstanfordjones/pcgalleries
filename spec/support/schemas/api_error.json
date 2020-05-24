@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "required": ["errors"],
+  "properties": {
+    "status" : { "type" : "string" },
+    "errors" : {
+      "type" : "array",
+      "items": {
+        "required" : [
+          "status",
+          "title",
+          "code"
+        ],
+        "properties" : {
+          "status" : { "type" : "string" },
+          "title" : { "type" : "string" },
+          "detail" : { 
+            "type" : "object",
+            "properties" : {
+              "email": {
+                "type": "array"
+              },
+              "login": {
+                "type": "array"
+              }
+            }
+          },
+          "code" : { "type" : "string" }
+        }
+      }
+    }
+  }
+}

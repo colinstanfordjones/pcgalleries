@@ -193,6 +193,35 @@ ALTER SEQUENCE public.calls_id_seq OWNED BY public.calls.id;
 
 
 --
+-- Name: jwt_blacklist; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.jwt_blacklist (
+    id bigint NOT NULL,
+    jti character varying NOT NULL
+);
+
+
+--
+-- Name: jwt_blacklist_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.jwt_blacklist_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: jwt_blacklist_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.jwt_blacklist_id_seq OWNED BY public.jwt_blacklist.id;
+
+
+--
 -- Name: notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -286,6 +315,13 @@ ALTER TABLE ONLY public.calls ALTER COLUMN id SET DEFAULT nextval('public.calls_
 
 
 --
+-- Name: jwt_blacklist id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jwt_blacklist ALTER COLUMN id SET DEFAULT nextval('public.jwt_blacklist_id_seq'::regclass);
+
+
+--
 -- Name: notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -321,6 +357,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.calls
     ADD CONSTRAINT calls_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: jwt_blacklist jwt_blacklist_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jwt_blacklist
+    ADD CONSTRAINT jwt_blacklist_pkey PRIMARY KEY (id);
 
 
 --
@@ -387,6 +431,13 @@ CREATE INDEX index_calls_on_note_id ON public.calls USING btree (note_id);
 --
 
 CREATE INDEX index_calls_on_user_id ON public.calls USING btree (user_id);
+
+
+--
+-- Name: index_jwt_blacklist_on_jti; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_jwt_blacklist_on_jti ON public.jwt_blacklist USING btree (jti);
 
 
 --
@@ -474,6 +525,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200522170101'),
 ('20200522171413'),
 ('20200523090755'),
-('20200523142147');
+('20200523142147'),
+('20200524023102');
 
 

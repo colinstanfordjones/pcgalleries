@@ -1,8 +1,10 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  validates :email, uniqueness: true
+
+  devise :database_authenticatable,
+         :registerable, :recoverable, :rememberable,
+         :jwt_authenticatable,
+         jwt_revocation_strategy: JwtBlacklist
 
   has_many :accounts, :primary_key => "id", :foreign_key => "sales_associate_id", :class_name => "Account"
 
@@ -24,5 +26,10 @@ class User < ApplicationRecord
 
   def admin?
     %i[admin].include?(self.role.to_sym)
+  end
+
+  def update(params)
+    reset_password(params[:password], params[:password_confirmation])
+    super *params
   end
 end
