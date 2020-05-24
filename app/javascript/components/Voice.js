@@ -64,7 +64,6 @@ var VoiceApp = createReactClass({
   // Initialize after component creation
   componentDidMount() {
     const self = this;
-
     var audioConstraints = navigator.mediaDevices.getUserMedia({
       audio: true
     }).then(stream => self.audioElement.srcObject = stream)

@@ -85,7 +85,7 @@ class CallsController < ApplicationController
 
   def initialize_client
     if user_signed_in?
-      @client_name = current_user.email
+      @client_name = current_user.email.gsub(/[^0-9A-Za-z]/, '')
     else
       @client_name = SecureRandom.uuid
     end

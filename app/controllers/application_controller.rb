@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
   def setup_twilio
     if user_signed_in?
-      @client_name = current_user.email
+      @client_name = current_user.email.gsub(/[^0-9A-Za-z]/, '')
     else
       @client_name = SecureRandom.uuid
     end
