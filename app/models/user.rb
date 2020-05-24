@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   after_initialize :set_default_role, if: :new_record?
 
-  def self.phone_number(_ = nil)
+  def self.agent_number(_ = nil)
     '+14152400492'
   end
 
