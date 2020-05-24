@@ -84,6 +84,11 @@ class CallsController < ApplicationController
   end
 
   def initialize_client
+    if user_signed_in?
+      @client_name = current_user.email
+    else
+      @client_name = SecureRandom.uuid
+    end
     @client = Twilio::REST::Client.new(ENV['ACCOUNT_SID'], ENV['SID_AUTH_TOKEN'])
   end
 end
