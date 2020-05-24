@@ -6,6 +6,7 @@
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "lib": ["es6", "dom"],
+    "types": ["node"],
     "module": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
