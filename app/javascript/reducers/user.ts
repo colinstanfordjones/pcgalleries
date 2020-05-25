@@ -1,18 +1,30 @@
-import { SERVER_CALLBACK, UPDATE_FIELDS, USER_INITIAL_STATE } from '../constants';
+import {
+  USER_SERVER_CALLBACK,
+  USER_UPDATE_FIELDS,
+  USER_INITIAL_STATE
+} from '../constants';
 
-const reducer = (state = USER_INITIAL_STATE, action: any) => {
+export const user = (state = USER_INITIAL_STATE, action: any) => {
   switch (action.type) {
-    case SERVER_CALLBACK:
+    case USER_SERVER_CALLBACK:
+      console.log("!!!!")
+      console.log(state)
+      console.log(action)
       return {
-          ...action.user
+          ...action.updatedUser
       }
-    case UPDATE_FIELDS:
+    case USER_UPDATE_FIELDS:
+      console.log("????")
+      console.log(state)
+      console.log(action)
       return {
-          ...action.user
+          ...action.updatedUser
         }
     default:
       return state
   }
 }
 
-export default reducer
+export default {
+  user
+}

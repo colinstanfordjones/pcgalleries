@@ -33,7 +33,7 @@ const Register = ({ user, processFields, createUser })  => {
       <Button
         variant='contained'
         onClick={ () => {
-          createUser
+          createUser(user)
         }}
       />
     </Container>

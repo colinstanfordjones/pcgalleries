@@ -7,13 +7,13 @@ const Login = ({ user, processFields, login }) => {
     <Container>
       <Input
         placeholder={'Email'}
-        value={user.email}
+        value={ user.email }
         // @ts-ignore
         onChange={ (event: object) => processFields(user, { email: event.target.value })}
       />
       <Input
         placeholder={'Password'}
-        value={user.password}
+        value={ user.password }
         type={'password'}
         // @ts-ignore
         onChange={ (event: object) => processFields(user, { password: event.target.value } )}
@@ -21,7 +21,7 @@ const Login = ({ user, processFields, login }) => {
       <Button
         variant={ 'contained' }
         onClick={ () => {
-           login
+           login(user)
         }}
       />
     </Container>

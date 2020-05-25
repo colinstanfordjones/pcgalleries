@@ -2,18 +2,18 @@ import React from 'react'
 
 import { Button } from '@material-ui/core';
 
-const Logout = ({ user, logout }) => {
+const User = ({ user, updateUser }) => {
   return (
     <Button
       variant='contained'
       onClick={ () => {
-        logout
+        updateUser
       }}
     />
   )
 }
 
 import { APP_PROP_TYPE } from '../constants';
-Logout.propTypes = APP_PROP_TYPE
+User.propTypes = APP_PROP_TYPE
 
-export default Logout
+export default User
