@@ -1,6 +1,5 @@
 // TODO dynamically set this up depending on environment vars, node, something.
 export const HOSTNAME = `https://${process.env.PUBLIC_HOSTNAME}/api/v1`
-
 // User Constants
 // API User Paths 
 export const CREATE_USER_PATH = "/signup"
@@ -31,8 +30,9 @@ export const APP_PROP_TYPE = {
     id: PropTypes.number,
     handle: PropTypes.string,
     email: PropTypes.string,
+    role: PropTypes.string,
     password: PropTypes.string,
-    confirm_password: PropTypes.string
+    password_confirmation: PropTypes.string
   }),
   us_states: PropTypes.shape({
     key: PropTypes.symbol,
@@ -69,7 +69,7 @@ export const USER_INITIAL_STATE = {
   name: "",
   email: "",
   password: "",
-  confirm_password: "",
+  password_confirmation: "",
   token: ""
 }
 

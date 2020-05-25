@@ -15,6 +15,8 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 gem 'react-rails'
 
+gem 'rack-cors'
+
 # Telephony related gems
 gem 'twilio-ruby'
 gem 'phonelib'

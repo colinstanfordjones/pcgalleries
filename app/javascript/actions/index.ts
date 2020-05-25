@@ -19,8 +19,7 @@ export const serverPost = (callback: any, path: string, params: object) => {
   const request_params = generateRequest(params)
   axios.post(`${HOSTNAME}${path}`, request_params)
     .then((response: any) => {
-      console.log('!!!')
-      console.log(response.data)
+      console.log(response)
       const jwt = response.headers['authorization'].split('Bearer ')[1];
       console.log(jwt)
       window.sessionStorage.setItem('jwt', jwt);

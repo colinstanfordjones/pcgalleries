@@ -24,9 +24,9 @@ const Register = ({ user, processFields, createUser })  => {
         type={'password'}
       />
       <Input
-        value={user.confirm_password}
+        value={user.password_confirmation}
         // @ts-ignore
-        onChange={ (event: object) => processFields(user, { confirm_password: event.target.value })}
+        onChange={ (event: object) => processFields(user, { password_confirmation: event.target.value })}
         placeholder={'Confirm Password'}
         type={'password'}
       />

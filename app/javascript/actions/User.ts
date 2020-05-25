@@ -23,7 +23,8 @@ export const processUserFields = (user: any, params: any) => (dispatch: any)  =>
 
 // User dispatch functions
 export const processUserRequest = (dispatch: any, user: any)  => (response: any) => {
-  console.log('Processing Request');
+  console.log('Processing User Request');
+  console.log(user)
   const updatedUser = {
     ...user,
     ...response
@@ -55,7 +56,7 @@ export const createUser = (user: any) => (dispatch: any) => {
       handle: user.handle,
       email: user.email,
       password: user.password,
-      confirm_password: user.confirm_password
+      password_confirmation: user.password_confirmation
     }
   }
   serverPost(processUserRequest(dispatch, user), CREATE_USER_PATH, create_user_server_params)
@@ -68,7 +69,7 @@ export const updateUser = (user: any) => (dispatch: any) => {
       handle: user.handle,
       email: user.email,
       password: user.password,
-      confirm_password: user.confirm_password
+      password_confirmation: user.password_confirmation
     }
   }
   serverPost(processUserRequest(dispatch, user), UPDATE_USER_PATH, update_user_server_params)

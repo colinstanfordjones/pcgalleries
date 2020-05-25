@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :update]
 
+  before_action :set_user, only: [:show, :update]
+  before_action :user_params, only: [:update]
 
   # GET /users.json
   def index
@@ -16,7 +17,10 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1.json
   def update
-    if current_user.id == @user.id && @user.update(user_params)
+    @user = current_user
+
+    if @user.update(params[:user])
+      bypass_sign_in(@user, scope: :user)
       render :show, status: :ok, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -32,5 +36,15 @@ class UsersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def user_params
     params.require(:user).permit(:handle, :email, :password, :password_confirmation)
+
+    if params[:user][:password_confirmation].blank?
+      params.require(:user).delete(:password)
+      params.require(:user).delete(:password_confirmation)
+    elsif params[:user][:password] != params[:user][:password_confirmation]
+      params.require(:user).delete(:password)
+      params.require(:user).delete(:password_confirmation)
+    else
+      params.require(:user).delete(:password_confirmation)
+    end
   end
 end

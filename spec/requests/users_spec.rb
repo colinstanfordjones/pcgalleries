@@ -20,15 +20,19 @@ RSpec.describe '/api/v1/users', type: :request do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
+      handle: "Second",
       email: "test1@test.com",
       password: "newpass",
       password_confirmation: "newpass"
+
     }
   }
 
   let(:invalid_attributes) {
     {
-      email: "test@test.com"
+      email: "test1@test.com",
+      password: "invalid",
+      password_confirmation: "newpass"
     }
   }
 
@@ -66,8 +70,8 @@ RSpec.describe '/api/v1/users', type: :request do
 
     context 'with invalid parameters' do
       it 'renders a JSON response with errors for the user' do
-        user = User.create(valid_attributes)
-        patch user_url(user),
+        User.create(valid_attributes)
+        patch user_url(@user),
               params: { user: invalid_attributes }, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json; charset=utf-8')

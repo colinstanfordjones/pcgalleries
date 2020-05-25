@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-  validates :email, uniqueness: true
+  validates :email, uniqueness: {case_sensitive: false}, on: :create
 
   devise :database_authenticatable,
-         :registerable, :recoverable, :rememberable,
+         :registerable,
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtBlacklist
 
@@ -29,7 +29,13 @@ class User < ApplicationRecord
   end
 
   def update(params)
-    reset_password(params[:password], params[:password_confirmation])
-    super *params
+    if params["email"] && ( @taken_email_account = self.class.find_by_email(params[:email]).try(:id) )
+      return false unless @taken_email_account == self.id
+    end
+
+    self.password = params["password"] if params["password"]
+    params.delete(:password)
+
+    super(params.to_enum.to_h)
   end
 end

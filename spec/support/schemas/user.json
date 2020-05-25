@@ -3,9 +3,7 @@
   "required" : [
     "handle",
     "email",
-    "id",
-    "created_at",
-    "updated_at"
+    "id"
   ],
   "properties" : {
     "current_device_id" : { "type" : "string" },

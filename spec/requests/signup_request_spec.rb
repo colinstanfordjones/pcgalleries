@@ -22,6 +22,17 @@ RSpec.describe 'POST /api/v1/signup', type: :request do
     it 'returns a new user' do
       expect(response.body).to match_schema('user')
     end
+
+    it 'returns JTW token in authorization header' do
+      expect(response.headers['Authorization']).to be_present
+    end
+
+    it 'returns valid JWT token' do
+      token_from_request = response.headers['Authorization'].split(" ").last
+      decoded_token = JWT.decode(token_from_request, ENV["DEVISE_JWT_SECRET_KEY"], true)
+
+      expect(decoded_token[0]["sub"]).to be_present
+    end
   end
 
   context 'when user already exists' do
