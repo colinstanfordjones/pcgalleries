@@ -18,10 +18,10 @@ export const ACCOUNTS_SERVER_CALLBACK = "ACCOUNTS_SERVER_CALLBACK"
 export const ACCOUNT_SERVER_CALLBACK = "ACCOUNT_SERVER_CALLBACK"
 export const ACCOUNT_UPDATE_FIELDS = "ACCOUNT_UPDATE_FIELDS"
 // Status enum
-export const USER_STATUS = {
-  INIT: "INIT",
-  LOGGED_IN: "LOGGED_IN",
-  LOGGED_OUT: "LOGGED_OUT"
+export const USER_ROLE = {
+  ADMIN: "admin",
+  SALES: "sales",
+  USER: "user"
 }
 
 import * as PropTypes from 'prop-types'
