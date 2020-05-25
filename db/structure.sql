@@ -198,7 +198,8 @@ ALTER SEQUENCE public.calls_id_seq OWNED BY public.calls.id;
 
 CREATE TABLE public.jwt_blacklist (
     id bigint NOT NULL,
-    jti character varying NOT NULL
+    jti character varying NOT NULL,
+    exp character varying NOT NULL
 );
 
 
@@ -431,6 +432,13 @@ CREATE INDEX index_calls_on_note_id ON public.calls USING btree (note_id);
 --
 
 CREATE INDEX index_calls_on_user_id ON public.calls USING btree (user_id);
+
+
+--
+-- Name: index_jwt_blacklist_on_exp; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_jwt_blacklist_on_exp ON public.jwt_blacklist USING btree (exp);
 
 
 --

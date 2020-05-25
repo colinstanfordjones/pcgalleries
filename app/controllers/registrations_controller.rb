@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::SessionsController
-  skip_before_action :verify_signed_out_user
   respond_to :json
 
   def create

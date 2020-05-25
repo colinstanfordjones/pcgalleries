@@ -7,13 +7,10 @@ import {
   UPDATE_USER_PATH,
 } from '../constants';
 
-import { serverPost, serverGet } from '.'
+import { serverPost, serverDelete } from '.'
 
 // User dispatch functions
 export const processUserFields = (user: any, params: any) => (dispatch: any)  => {
-  console.log('Processing Field');
-  console.log(user)
-  console.log(params)
   const updatedUser = {
     ...user,
     ...params
@@ -23,12 +20,36 @@ export const processUserFields = (user: any, params: any) => (dispatch: any)  =>
 
 // User dispatch functions
 export const processUserRequest = (dispatch: any, user: any)  => (response: any) => {
-  console.log('Processing User Request');
-  console.log(user)
   const updatedUser = {
     ...user,
-    ...response
+    ...response.data
   }
+  dispatch({ type: USER_SERVER_CALLBACK, updatedUser });
+}
+// User dispatch functions
+export const processUserSessionRequest = (dispatch: any, user: any)  => (response: any) => {
+  console.log('New User Session');
+  console.log(response);
+
+  const jwt = response.headers['authorization'].split('Bearer ')[1];
+  window.sessionStorage.setItem('jwt', jwt);
+  const updatedUser = {
+    ...response.data
+  }
+  console.log(updatedUser);
+
+  dispatch({ type: USER_SERVER_CALLBACK, updatedUser });
+}
+
+// User dispatch functions
+export const processUserLogoutRequest = (dispatch: any, user: any)  => (response: any) => {
+  console.log('Destroy Session');
+  console.log(response);
+
+  const updatedUser = {
+    ...response.data
+  }
+
   dispatch({ type: USER_SERVER_CALLBACK, updatedUser });
 }
 
@@ -41,12 +62,12 @@ export const login = (user: any) => (dispatch: any) => {
       password: user.password
     }
   }
-  serverPost(processUserRequest(dispatch, user), LOGIN_PATH, login_server_params)
+  serverPost(processUserSessionRequest(dispatch, user), LOGIN_PATH, login_server_params)
 }
 
 export const logout = (user: any) => (dispatch: any) => {
   console.log("logout")
-  serverGet(processUserRequest(dispatch, user), LOGOUT_PATH, {})
+  serverDelete(processUserLogoutRequest(dispatch, user), LOGOUT_PATH, {})
 }
 
 export const createUser = (user: any) => (dispatch: any) => {
@@ -59,7 +80,7 @@ export const createUser = (user: any) => (dispatch: any) => {
       password_confirmation: user.password_confirmation
     }
   }
-  serverPost(processUserRequest(dispatch, user), CREATE_USER_PATH, create_user_server_params)
+  serverPost(processUserSessionRequest(dispatch, user), CREATE_USER_PATH, create_user_server_params)
 }
 
 export const updateUser = (user: any) => (dispatch: any) => {

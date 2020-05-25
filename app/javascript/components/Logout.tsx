@@ -7,7 +7,7 @@ const Logout = ({ user, logout }) => {
     <Button
       variant='contained'
       onClick={ () => {
-        logout
+        logout(user)
       }}
     />
   )

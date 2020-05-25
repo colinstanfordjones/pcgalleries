@@ -32,7 +32,7 @@ const Home = ({ user, accounts, account, login, logout, createUser, updateUser, 
     case USER_ROLE.ADMIN :
       return (
         <Container>
-          Logged In : { user.name }
+          Logged In : { user.email }
           <Logout user={ user } logout={ logout } />
           <Accounts
             user={ user }
@@ -42,6 +42,14 @@ const Home = ({ user, accounts, account, login, logout, createUser, updateUser, 
             processFields={ processAccountFields }
             createAccount={ createAccount }
             updateAccount={ updateAccount }/>
+          <User user={ user } processFields={ processUserFields } updateUser={ updateUser }/>
+        </Container>
+      )
+    case USER_ROLE.USER :
+      return (
+        <Container>
+          Logged In : { user.email }
+          <Logout user={ user } logout={ logout } />
           <User user={ user } processFields={ processUserFields } updateUser={ updateUser }/>
         </Container>
       )
