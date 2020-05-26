@@ -34,7 +34,7 @@ export const processAccountRequest = (dispatch: any, app: any)  => (response: an
   console.log('Processing Account Request');
   const updatedAccount = {
     ...app.account,
-    ...response
+    ...response.data
   }
   dispatch({ type: ACCOUNT_SERVER_CALLBACK, updatedAccount });
 }
