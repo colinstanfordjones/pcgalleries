@@ -22,11 +22,11 @@ export const processAccountFields = (app: any, params: any) => (dispatch: any)  
 // User dispatch functions
 export const processAccountsRequest = (dispatch: any, app: any)  => (response: any) => {
   console.log('Processing Account Request');
-  const updatedAccount = {
+  const updatedAccounts = {
     ...app.accounts,
     ...response.data
   }
-  dispatch({ type: ACCOUNTS_SERVER_CALLBACK, updatedAccount });
+  dispatch({ type: ACCOUNTS_SERVER_CALLBACK, updatedAccounts });
 }
 
 // User dispatch functions
