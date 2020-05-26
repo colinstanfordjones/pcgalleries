@@ -123,7 +123,13 @@ const Accounts = ({ accounts, account, getAccounts, createAccount, updateAccount
   return (
     <div className={classes.root}>
       { listAccounts }
-      <Button label="Get Accounts" onClick={ () => { getAccounts(accounts) } }/>
+      <Button
+        // @ts-ignore
+        onClick={ () => 
+          { getAccounts(accounts) }
+        }>
+        Get Accounts
+      </Button>
     </div>
   );
 }
