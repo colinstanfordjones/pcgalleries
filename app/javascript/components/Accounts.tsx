@@ -112,11 +112,13 @@ const Account = ({ account, processFields }) => {
 }
 
 
-const Accounts = ({ user, accounts, account, getAccounts, createAccount, updateAccount, processAccountFields }) => {
+const Accounts = ({ accounts, account, getAccounts, createAccount, updateAccount, processFields }) => {
   const classes = useStyles();
+  const list = Object.values(accounts);
 
-  const listAccounts = accounts.each((acct: any) =>
-    <Account account={acct} processFields={processAccountFields} />
+  const listAccounts = list.map((acct: any) => {
+      console.log(acct);
+    }
   );
   return (
     <div className={classes.root}>

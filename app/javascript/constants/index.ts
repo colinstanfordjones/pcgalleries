@@ -43,20 +43,7 @@ export const APP_PROP_TYPE = {
   createUser: PropTypes.func,
   processFields: PropTypes.func,
   
-  accounts: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-    phone_number: PropTypes.string,
-    email: PropTypes.string,
-    address1: PropTypes.string,
-    address2: PropTypes.string,
-    city: PropTypes.string,
-    state: PropTypes.symbol,
-    zip: PropTypes.number,
-    created_at: PropTypes.instanceOf(Date),
-    updated_a: PropTypes.instanceOf(Date)
-  })),
+  accounts: PropTypes.object,
   getAccounts: PropTypes.func,
   updateAccounts: PropTypes.func,
   createAccounts: PropTypes.func,
@@ -81,7 +68,7 @@ export const USER_INITIAL_STATE = {
   token: ""
 }
 
-export const ACCOUNTS_INITIAL_STATE = []
+export const ACCOUNTS_INITIAL_STATE = {}
 
 export const ACCOUNT_INITIAL_STATE = {
   id: -1,
