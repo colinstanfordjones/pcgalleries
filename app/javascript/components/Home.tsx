@@ -11,7 +11,21 @@ import { Container } from '@material-ui/core';
 
 import { USER_ROLE, APP_PROP_TYPE } from '../constants';
 
-const Home = ({ user, accounts, account, login, logout, createUser, updateUser, getAccounts, createAccount, updateAccount, processUserFields, processAccountFields }) => {
+const Home = ({
+  user,
+  accounts,
+  account,
+  voice,
+  login,
+  logout,
+  createUser,
+  updateUser,
+  getAccounts,
+  createAccount,
+  updateAccount,
+  processUserFields,
+  processAccountFields
+}) => {
   switch (user.role) {
     case USER_ROLE.SALES :
       return (

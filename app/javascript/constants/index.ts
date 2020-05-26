@@ -12,10 +12,13 @@ export const UPDATE_ACCOUNT_PATH = '/accounts'
 // Declared User action names
 export const USER_SERVER_CALLBACK = "USER_SERVER_CALLBACK"
 export const USER_UPDATE_FIELDS = "USER_UPDATE_FIELDS"
-// Declared User action names
+// Declared Accounts action names
 export const ACCOUNTS_SERVER_CALLBACK = "ACCOUNTS_SERVER_CALLBACK"
 export const ACCOUNT_SERVER_CALLBACK = "ACCOUNT_SERVER_CALLBACK"
 export const ACCOUNT_UPDATE_FIELDS = "ACCOUNT_UPDATE_FIELDS"
+// Declared Phone action names
+export const PHONE_SERVER_CALLBACK = "PHONE_SERVER_CALLBACK"
+export const PHONE_UPDATE_FIELDS = "PHONE_UPDATE_FIELDS"
 // Status enum
 export const USER_ROLE = {
   ADMIN: "admin",
@@ -32,20 +35,14 @@ export const APP_PROP_TYPE = {
     email: PropTypes.string,
     role: PropTypes.string,
     password: PropTypes.string,
-    password_confirmation: PropTypes.string
-  }),
-  us_states: PropTypes.shape({
-    key: PropTypes.symbol,
-    value: PropTypes.string
+    password_confirmation: PropTypes.string,
+    token: PropTypes.string,
   }),
   login: PropTypes.func,
   logout: PropTypes.func,
   createUser: PropTypes.func,
   processFields: PropTypes.func,
-  token: PropTypes.string,
-  twilio_token: PropTypes.string,
-  agent: PropTypes.string,
-
+  
   accounts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     first_name: PropTypes.string,
@@ -63,6 +60,17 @@ export const APP_PROP_TYPE = {
   getAccounts: PropTypes.func,
   updateAccounts: PropTypes.func,
   createAccounts: PropTypes.func,
+
+  us_states: PropTypes.shape({
+    key: PropTypes.symbol,
+    value: PropTypes.string
+  }),
+
+  voice: PropTypes.shape({
+    phone_number: PropTypes.string,
+    agent: PropTypes.string,
+    token: PropTypes.string,
+  })
 }
 
 export const USER_INITIAL_STATE = {

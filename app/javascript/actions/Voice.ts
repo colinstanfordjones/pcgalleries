@@ -1,64 +1,73 @@
-const initializeTwilio = () =>  {
-    // Fetch Twilio capability token from our Node.js server
-    Twilio.Device.setup(self.props.token, { debug: true, audioConstraints: self.state.audioConstraints });
 
-    // Configure event handlers for Twilio Device
-    Twilio.Device.on('disconnect', function() {
-      self.setState({
-        onPhone: false,
-        status: 'Call ended.'
-      });
+const Twilio = require('twilio-client');
+
+const TwilioInitialize = ( voice ) =>  {
+  // Fetch Twilio capability token from our Node.js server
+  Twilio.Device.setup(voice.token, { debug: true, audioConstraints: voice.audioConstraints });
+
+  // Configure event handlers for Twilio Device
+  Twilio.Device.on('disconnect', function() {
+    console.log('disconnect');
+    voice.setState({
+      onPhone: false,
+      status: 'Call ended.'
+    });
+  });
+
+  Twilio.Device.on('connect', function() {
+    console.log('connect');
+    voice.setState({
+      onPhone: true,
+      status: 'Call Start.'
+    });
+  });
+
+  Twilio.Device.on('incoming', function(connection) {
+    console.log('incoming');
+    voice.setState({
+      onPhone: true,
+      status: 'Incoming Call'
     });
 
-    Twilio.Device.on('connect', function() {
-      self.setState({
-        onPhone: true,
-        status: 'Call Start.'
-      });
+    connection.accept(voice.audioConstraints);
+  });
+
+  Twilio.Device.on('ready', function(device) {
+    console.log('ready');
+    console.log(device);
+    voice.setState({
+      onPhone: false,
+      status: 'Ready'
     });
+  });
 
-    Twilio.Device.on('incoming', function(connection) {
-      self.setState({
-        onPhone: true,
-        status: 'Incoming Call'
-      });
-
-      connection.accept(self.state.audioConstraints);
+  Twilio.Device.on('offline', function(device) {
+    console.log('offline');
+    console.log(device);
+    voice.setState({
+      onPhone: false,
+      status: 'Disconnected'
     });
+  });
+}
 
-    Twilio.Device.on('ready', function(device) {
-      self.setState({
-        onPhone: false,
-        status: 'Ready'
-      });
-    });
+// Handle Dial
+const handleDial = (voice, user) => {
+  Twilio.Device.connect({
+    phone: user.phoneNumber,
+    agent: user.agent
+  }, voice.audioConstraints);
+}
 
-    Twilio.Device.on('offline', function(device) {
-      console.log(device);
-      self.setState({
-        onPhone: false,
-        status: 'Disconnected'
-      });
-    });
-  },
+// Handle muting
+const handleToggleMute = (voice) =>  {
+  const muted = !voice.muted;
 
-  // Handle Dial
-  const handleDial = () => {
-    Twilio.Device.connect({
-      phone: this.state.phoneNumber,
-      agent: this.state.agent
-    }, this.state.audioConstraints);
-  },
+  voice.setState({muted: muted});
+  Twilio.Device.activeConnection().mute(muted);
+}
 
-  // Handle muting
-  const handleToggleMute = () =>  {
-    var muted = !this.state.muted;
-
-    this.setState({muted: muted});
-    Twilio.Device.activeConnection().mute(muted);
-  },
-
-  // Handle muting
-  handleEndConnection() {
-    Twilio.Device.disconnectAll();
-  },
+// Handle muting
+const handleEndConnection = () => {
+  Twilio.Device.disconnectAll();
+}
