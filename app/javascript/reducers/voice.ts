@@ -7,6 +7,7 @@ var self = this;
 
 const audioConstraints = navigator.mediaDevices.getUserMedia({
   audio: true
+  // @ts-ignore
 }).then(stream => self.audioElement.srcObject = stream)
 .catch(err => console.log(err.name + ": " + err.message));
 
