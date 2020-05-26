@@ -117,13 +117,14 @@ const Accounts = ({ accounts, account, getAccounts, createAccount, updateAccount
   const list = Object.values(accounts);
 
   const listAccounts = list.map((acct: any) => {
-      console.log(acct);
+      return(< Account processFields={ processFields } account={ acct } />)
     }
   );
   return (
     <div className={classes.root}>
       { listAccounts }
       <Button
+        variant='contained'
         // @ts-ignore
         onClick={ () => 
           { getAccounts(accounts) }

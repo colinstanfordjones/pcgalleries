@@ -9,7 +9,9 @@ const Logout = ({ user, logout }) => {
       onClick={ () => {
         logout(user)
       }}
-    />
+    >
+      Logout
+    </Button>
   )
 }
 
